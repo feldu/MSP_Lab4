@@ -1,5 +1,7 @@
 package lab4.mbeans;
 
 public interface MissPercentageMBean {
-    long getMissPercentage();
+    void updateCounters(long misses, long all);
+
+    double getMissPercentage();
 }

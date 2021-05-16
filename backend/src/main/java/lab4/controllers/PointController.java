@@ -55,8 +55,9 @@ public class PointController {
     public ResponseEntity<List<Point>> getPoints(@AuthenticationPrincipal User user) {
         log.debug("POST request to get all user's points");
         List<Point> points = pointsService.findAllPointsByUser(user);
-        //MBean update data
+        //MBeans update data
         pointsCounterMBean.updateCounters(points);
+        missPercentageMBean.updateCounters(pointsCounterMBean.getMissCnt(), pointsCounterMBean.getPointsCnt());
         return new ResponseEntity<>(points, HttpStatus.OK);
     }
 }

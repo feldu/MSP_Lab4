@@ -6,14 +6,16 @@ import org.springframework.stereotype.Component;
 @ManagedResource
 @Component
 public class MissPercentage implements MissPercentageMBean {
-    final PointsCounterMBean pointsCounterMBean;
+    double missPercentage = 0;
 
-    public MissPercentage(PointsCounterMBean pointsCounterMBean) {
-        this.pointsCounterMBean = pointsCounterMBean;
+    @Override
+    public void updateCounters(long misses, long all) {
+        missPercentage = (double) misses / all * 100;
+        System.err.println(missPercentage);
     }
 
     @Override
-    public long getMissPercentage() {
-        return pointsCounterMBean.getMissCnt() / pointsCounterMBean.getPointsCnt() * 100;
+    public double getMissPercentage() {
+        return missPercentage;
     }
 }
