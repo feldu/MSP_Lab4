@@ -1,7 +1,13 @@
 package lab4.mbeans;
 
-public interface PointsCounterMBean {
-    int getPointsCnt();
+import lab4.entities.Point;
 
-    int getHitCnt();
+import java.util.List;
+
+public interface PointsCounterMBean {
+    void updateCounters(List<Point> points);
+
+    long getPointsCnt();
+
+    long getMissCnt();
 }

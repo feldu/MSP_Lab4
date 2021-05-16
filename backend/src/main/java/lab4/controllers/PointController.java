@@ -2,6 +2,8 @@ package lab4.controllers;
 
 import lab4.entities.Point;
 import lab4.entities.User;
+import lab4.mbeans.MissPercentageMBean;
+import lab4.mbeans.PointsCounterMBean;
 import lab4.services.PointsService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -18,9 +20,14 @@ import java.util.List;
 @RequestMapping("/areas")
 public class PointController {
     final PointsService pointsService;
+    final PointsCounterMBean pointsCounterMBean;
+    final MissPercentageMBean missPercentageMBean;
 
-    public PointController(PointsService pointsService) {
+
+    public PointController(PointsService pointsService, PointsCounterMBean pointsCounterMBean, MissPercentageMBean missPercentageMBean) {
         this.pointsService = pointsService;
+        this.pointsCounterMBean = pointsCounterMBean;
+        this.missPercentageMBean = missPercentageMBean;
     }
 
     @PostMapping("/points")
@@ -48,6 +55,8 @@ public class PointController {
     public ResponseEntity<List<Point>> getPoints(@AuthenticationPrincipal User user) {
         log.debug("POST request to get all user's points");
         List<Point> points = pointsService.findAllPointsByUser(user);
+        //MBean update data
+        pointsCounterMBean.updateCounters(points);
         return new ResponseEntity<>(points, HttpStatus.OK);
     }
 }
