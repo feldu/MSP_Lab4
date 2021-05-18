@@ -14,7 +14,6 @@ public class MissPercentage implements MissPercentageMBean {
     public void updateCounters(long misses, long all) {
         missPercentage = (double) misses / all * 100;
         log.info("miss percentage updated to {}", missPercentage);
-        System.err.println(missPercentage);
     }
 
     @Override
