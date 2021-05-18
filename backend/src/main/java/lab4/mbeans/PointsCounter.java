@@ -29,7 +29,7 @@ public class PointsCounter extends NotificationBroadcasterSupport implements Poi
             this.sendNotification(notification);
             log.info("pointsCountIsMultipleOfFive id: " + sequenceCounter);
         }
-        log.error(missCnt + " " + pointsCnt);
+        log.info("missed count={}, points count = {}", missCnt, pointsCnt);
     }
 
     @Override
